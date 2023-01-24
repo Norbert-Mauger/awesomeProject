@@ -11,15 +11,14 @@ export type Props = {
 };
 
 import * as React from "react";
-import { Header, Icon } from  '@rneui/themed';
+import { Header, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
   return (
     <>
-      <StatusBar style="dark" />
       <SafeAreaView style={styles.container}>
-        <Header 
+        <Header
           backgroundImageStyle={{}}
           barStyle="default"
           centerComponent={{
@@ -35,6 +34,9 @@ export default function App() {
           rightContainerStyle={{}}
           statusBarProps={{}} />
         <ScrollView>
+          <View style={styles.body}>
+            <Text style={styles.title}>This is the CAT CAFÉ !</Text>
+          </View>
           <Cafe></Cafe>
         </ScrollView>
       </SafeAreaView>
@@ -62,15 +64,16 @@ const Cat: React.FC<CatProps> = ({ name }) => {
 
   return (
     <Fragment>
-      <View>
-        <Text>Meow, my name is {name}</Text>
-        <Text>and {isHungry ? "I am hungry" : "I'm fine thank you"}</Text>
+      <View style={catStyles.body}>
+        <Text style={catStyles.title}>{name}</Text>
         <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat1.png',
           }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 120, height: 120 }}
         />
+        <Text style={catStyles.text}>Meow, my name is {name}</Text>
+        <Text style={catStyles.text}>and {isHungry ? "I am hungry" : "I'm fine thank you"}</Text>
         <Button
           onPress={() => {
             setIsHungry(false);
@@ -94,4 +97,48 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  body : {
+    backgroundColor: "#FFAA44",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+
+  },
+  title : {
+    fontSize: 20,
+    fontStyle: 'normal',
+    margin: 10
+  }
+
+});
+
+const catStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#adf",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  body : {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+
+  },
+  title : {
+    backgroundColor: "#8be",
+    fontSize: 18,
+    fontStyle: 'normal',
+    margin: 4,
+    marginTop: 32,
+    padding: 4,
+    paddingHorizontal: 12
+  },
+  text : {
+    fontSize: 16,
+    fontStyle: 'italic',
+    marginBottom: 8
+    
+  }
+
 });
