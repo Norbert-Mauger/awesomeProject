@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Fragment, useState } from "react";
-import { Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 export type Props = {
@@ -33,25 +33,49 @@ export default function App() {
           rightComponent={{ icon: "home", color: "#fff" }}
           rightContainerStyle={{}}
           statusBarProps={{}} />
-        <ScrollView>
-          <View style={styles.body}>
-            <Text style={styles.title}>This is the CAT CAFÉ !</Text>
-          </View>
+        <View style={styles.header}>
+          <Text style={styles.title}>This is the CAT CAFÉ !</Text>
+        </View>
+        <View style={styles.body}>
           <Cafe></Cafe>
-        </ScrollView>
+        </View>
       </SafeAreaView>
     </>
   );
 }
 
 const Cafe = () => {
-  return (
-    <View style={catStyles.container}>
+  let catList = [
+    { key: 1, name: "Willy" },
+    { key: 2, name: "Spot" },
+    { key: 3, name: "Tommy" },
+    { key: 4, name: "Lilly" }]
 
-      <Cat name="Willy" />
-      <Cat name="Spot" />
-      <Cat name="Tommy" />
-      <Cat name="Lilly" />
+  const [cats, setCats] = useState(catList);
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    // add a cat...
+    setCats([...cats, {key: cats.length+1, name: "New One"}])
+    setRefreshing(false);
+
+  }
+
+  return (
+    <View style={cafeStyle.container}>
+      <ScrollView horizontal={false} refreshControl={
+        <RefreshControl 
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
+        {
+          cats.map((item) => {
+            return <Cat key={item.key} name={item.name} />
+          })
+        }
+      </ScrollView>
     </View>
   );
 };
@@ -100,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "center",
   },
-  body: {
+  header: {
     backgroundColor: "#FFAA44",
     alignItems: "center",
     justifyContent: "center",
@@ -112,16 +136,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: 'normal',
     margin: 10
+  },
+  body: {
+    flex: 11,
   }
 
 });
 
 const catStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    margin: 16, 
-  },
   body: {
     alignItems: "center",
     justifyContent: "center",
@@ -151,3 +173,10 @@ const catStyles = StyleSheet.create({
   }
 
 });
+
+const cafeStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16
+  },
+})
