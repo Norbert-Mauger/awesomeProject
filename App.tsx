@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Fragment, useState } from "react";
-import { Button, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 export type Props = {
@@ -57,14 +57,25 @@ const Cafe = () => {
   const onRefresh = () => {
     setRefreshing(true);
     // add a cat...
-    setCats([...cats, {key: cats.length+1, name: "New One"}])
+    const newKey = cats.length+1
+    setCats([...cats, {key: newKey , name: `Cat #${newKey}`}])
     setRefreshing(false);
 
   }
 
   return (
     <View style={cafeStyle.container}>
-      <ScrollView horizontal={false} refreshControl={
+      <FlatList
+        keyExtractor={(item) => item.key.toString()}
+        data={cats} 
+        renderItem={({item})=>(
+          <Cat key={item.key} name={item.name} />
+        )}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+       />
+
+      {/* <ScrollView horizontal={false} refreshControl={
         <RefreshControl 
           refreshing={refreshing}
           onRefresh={onRefresh}
@@ -75,7 +86,7 @@ const Cafe = () => {
             return <Cat key={item.key} name={item.name} />
           })
         }
-      </ScrollView>
+      </ScrollView> */}
     </View>
   );
 };
