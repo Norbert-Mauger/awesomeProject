@@ -46,12 +46,13 @@ export default function App() {
 
 const Cafe = () => {
   return (
-    <>
+    <View style={catStyles.container}>
+
       <Cat name="Willy" />
       <Cat name="Spot" />
       <Cat name="Tommy" />
       <Cat name="Lilly" />
-    </>
+    </View>
   );
 };
 
@@ -75,18 +76,18 @@ const Cat: React.FC<CatProps> = ({ name }) => {
         <Text style={catStyles.text}>Meow, my name is {name}</Text>
         <Text style={catStyles.text}>and {isHungry ? "I am hungry" : "I'm fine thank you"}</Text>
         <View style={catStyles.buttonStyle}>
-        <Button
-          onPress={() => {
-            setIsHungry(false);
-            let timer: ReturnType<typeof setTimeout> = setTimeout(() => {
-              setIsHungry(true);
-              clearTimeout(timer);
-              resetTime(Math.floor(Math.random() * 5000))
-            }, digestionTime);
-          }}
-          disabled={!isHungry}
-          title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
-        />
+          <Button
+            onPress={() => {
+              setIsHungry(false);
+              let timer: ReturnType<typeof setTimeout> = setTimeout(() => {
+                setIsHungry(true);
+                clearTimeout(timer);
+                resetTime(Math.floor(Math.random() * 5000))
+              }, digestionTime);
+            }}
+            disabled={!isHungry}
+            title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+          />
         </View>
       </View>
     </Fragment>
@@ -96,10 +97,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#adf",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
   },
-  body : {
+  body: {
     backgroundColor: "#FFAA44",
     alignItems: "center",
     justifyContent: "center",
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     margin: 12
 
   },
-  title : {
+  title: {
     fontSize: 20,
     fontStyle: 'normal',
     margin: 10
@@ -118,36 +119,35 @@ const styles = StyleSheet.create({
 const catStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#adf",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "column",
+    margin: 16, 
   },
-  body : {
+  body: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
     borderWidth: 2,
     borderRadius: 12,
     margin: 8,
   },
-  buttonStyle : {
+  buttonStyle: {
     margin: 8,
   },
-  title : {
+  title: {
     backgroundColor: "#8be",
     fontSize: 18,
+    textTransform: 'uppercase',
     fontStyle: 'normal',
     margin: 4,
     marginTop: 12,
     padding: 4,
     paddingHorizontal: 12
   },
-  text : {
+  text: {
     fontSize: 16,
 
     fontStyle: 'italic',
     marginBottom: 8
-    
+
   }
 
 });
