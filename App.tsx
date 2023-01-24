@@ -74,6 +74,7 @@ const Cat: React.FC<CatProps> = ({ name }) => {
         />
         <Text style={catStyles.text}>Meow, my name is {name}</Text>
         <Text style={catStyles.text}>and {isHungry ? "I am hungry" : "I'm fine thank you"}</Text>
+        <View style={catStyles.buttonStyle}>
         <Button
           onPress={() => {
             setIsHungry(false);
@@ -86,6 +87,7 @@ const Cat: React.FC<CatProps> = ({ name }) => {
           disabled={!isHungry}
           title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
         />
+        </View>
       </View>
     </Fragment>
   )
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    margin: 12
 
   },
   title : {
@@ -123,19 +126,25 @@ const catStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-
+    borderWidth: 2,
+    borderRadius: 12,
+    margin: 8,
+  },
+  buttonStyle : {
+    margin: 8,
   },
   title : {
     backgroundColor: "#8be",
     fontSize: 18,
     fontStyle: 'normal',
     margin: 4,
-    marginTop: 32,
+    marginTop: 12,
     padding: 4,
     paddingHorizontal: 12
   },
   text : {
     fontSize: 16,
+
     fontStyle: 'italic',
     marginBottom: 8
     
