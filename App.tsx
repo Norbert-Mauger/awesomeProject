@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Fragment, useState } from "react";
-import { Button, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 export type Props = {
@@ -46,10 +46,10 @@ export default function App() {
 
 const Cafe = () => {
   let catList = [
-    { key: 1, name: "Willy" },
-    { key: 2, name: "Spot" },
-    { key: 3, name: "Tommy" },
-    { key: 4, name: "Lilly" }]
+    { key: 0, name: "Willy" },
+    { key: 1, name: "Spot" },
+    { key: 2, name: "Tommy" },
+    { key: 3, name: "Lilly" }]
 
   const [cats, setCats] = useState(catList);
   const [refreshing, setRefreshing] = useState(false)
@@ -57,44 +57,46 @@ const Cafe = () => {
   const onRefresh = () => {
     setRefreshing(true);
     // add a cat...
-    const newKey = cats.length+1
-    setCats([...cats, {key: newKey , name: `Cat #${newKey}`}])
+    const newKey = cats.length
+    setCats([...cats, { key: newKey, name: `Cat #${newKey}` }])
     setRefreshing(false);
-
   }
+
+  const setName = (key: number, newName: string) => {
+    const newCats = cats.map((c, i) => {
+      if (i === key) {
+        return {...c, name: newName}
+      } else {
+        return c
+      }
+    });
+        
+    setCats(newCats)
+  }
+
 
   return (
     <View style={cafeStyle.container}>
       <FlatList
         keyExtractor={(item) => item.key.toString()}
-        data={cats} 
-        renderItem={({item})=>(
-          <Cat key={item.key} name={item.name} />
+        data={cats}
+        renderItem={({ item }) => (
+          <Cat keycat={item.key} name={item.name} newName={setName} />
         )}
         refreshing={refreshing}
         onRefresh={onRefresh}
-       />
-
-      {/* <ScrollView horizontal={false} refreshControl={
-        <RefreshControl 
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }>
-        {
-          cats.map((item) => {
-            return <Cat key={item.key} name={item.name} />
-          })
-        }
-      </ScrollView> */}
+      />
     </View>
   );
 };
 
 type CatProps = {
+  keycat: number;
   name: string;
+  newName:  (key: number, newName: string) => void
 }
-const Cat: React.FC<CatProps> = ({ name }) => {
+
+const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
   const [isHungry, setIsHungry] = useState(true);
   const [digestionTime, resetTime] = useState(Math.floor(Math.random() * 5000));
 
@@ -102,6 +104,15 @@ const Cat: React.FC<CatProps> = ({ name }) => {
     <Fragment>
       <View style={catStyles.body}>
         <Text style={catStyles.title}>{name}</Text>
+        <TextInput
+          style={catStyles.input}
+          placeholder="cat name"
+          onChangeText={(value) => newName(keycat, value)}
+          maxLength={12}
+          editable={true}
+        >
+          {name}
+        </TextInput>
         <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat1.png',
@@ -180,6 +191,16 @@ const catStyles = StyleSheet.create({
 
     fontStyle: 'italic',
     marginBottom: 8
+
+  },
+  input: {
+    width: 150,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "#8be",
+    textAlign: "center",
+    fontSize: 22,
+    textTransform: 'uppercase',
 
   }
 
