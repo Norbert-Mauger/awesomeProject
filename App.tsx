@@ -63,14 +63,21 @@ const Cafe = () => {
   }
 
   const setName = (key: number, newName: string) => {
-    const newCats = cats.map((c, i) => {
-      if (i === key) {
-        return {...c, name: newName}
-      } else {
-        return c
-      }
-    });
-        
+    // const newCats = cats.map((c, i) => {
+    //   if (i === key) {
+    //     return {...c, name: newName}
+    //   } else {
+    //     return c
+    //   }
+    // });
+
+    const newCats = [...cats];
+    const c = newCats.find(
+      a => a.key === key
+    );
+    if (c !== undefined)
+      c.name = newName  
+
     setCats(newCats)
   }
 
