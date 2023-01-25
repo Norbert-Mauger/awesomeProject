@@ -107,7 +107,8 @@ const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
         <TextInput
           style={catStyles.input}
           placeholder="cat name"
-          onChangeText={(value) => newName(keycat, value)}
+          autoComplete="off"
+          onEndEditing={(value) => newName(keycat, value.nativeEvent.text)}
           maxLength={12}
           editable={true}
         >
@@ -142,7 +143,7 @@ const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#adf",
+    backgroundColor: "#cef",
     alignItems: "stretch",
     justifyContent: "center",
   },
@@ -177,7 +178,7 @@ const catStyles = StyleSheet.create({
     margin: 8,
   },
   title: {
-    backgroundColor: "#8be",
+    backgroundColor: "#adf",
     fontSize: 18,
     textTransform: 'uppercase',
     fontStyle: 'normal',
@@ -197,7 +198,7 @@ const catStyles = StyleSheet.create({
     width: 150,
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: "#8be",
+    backgroundColor: "#adf",
     textAlign: "center",
     fontSize: 22,
     textTransform: 'uppercase',
