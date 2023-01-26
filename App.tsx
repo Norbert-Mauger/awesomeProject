@@ -77,7 +77,8 @@ const Cafe = () => {
   return (
     <ImageBackground 
       style={cafeStyle.container}
-      source={{uri:"https://cdn.pixabay.com/photo/2016/12/30/19/33/children-1941336_960_720.png"}}>
+      //source={{uri:"https://cdn.pixabay.com/photo/2016/12/30/19/33/children-1941336_960_720.png"}}>
+      source={require('./assets/background.png')}>
       <FlatList
         keyExtractor={(item) => item.key.toString()}
         data={cats}
