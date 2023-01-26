@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Fragment, useState } from "react";
-import { Button, FlatList, Image, Pressable, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Button, FlatList, Image, ImageBackground, Pressable, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, View } from "react-native";
 
 
 export type Props = {
@@ -75,7 +75,9 @@ const Cafe = () => {
 
 
   return (
-    <View style={cafeStyle.container}>
+    <ImageBackground 
+      style={cafeStyle.container}
+      source={{uri:"https://cdn.pixabay.com/photo/2016/12/30/19/33/children-1941336_960_720.png"}}>
       <FlatList
         keyExtractor={(item) => item.key.toString()}
         data={cats}
@@ -85,7 +87,7 @@ const Cafe = () => {
         refreshing={refreshing}
         onRefresh={onRefresh}
       />
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -100,6 +102,12 @@ const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
   const [digestionTime, resetTime] = useState(1000);
 
   const feedTheCat = (giveALot : boolean) => {
+    // if(!isHungry) {
+    //   Alert .alert('MEEEOOOW', 'Already fed')
+    //   console.log("ALREADY OK");
+    // }    
+    console.warn("feeding...");
+    ToastAndroid.showWithGravity (`Feeding ${name}...`, ToastAndroid.SHORT, ToastAndroid.CENTER)
     const delay = giveALot ? 10000 : 1000
     setIsHungry(false);
     let timer: ReturnType<typeof setTimeout> = setTimeout(() => {
@@ -134,7 +142,7 @@ const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
         <View style={catStyles.buttonStyle}>
           <Pressable
             style={catStyles.buttonStyle}
-            android_ripple={{color: catStyles.buttonStyle.rippleColor}}
+            android_ripple={{color:catStyles.buttonStyle.rippleColor}}
             delayLongPress={2000}
             onLongPress={() => {
               feedTheCat(true)
@@ -181,6 +189,8 @@ const styles = StyleSheet.create({
 
 const catStyles = StyleSheet.create({
   body: {
+    backgroundColor: "#adf",
+    opacity: 0.9,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 2,
@@ -193,6 +203,7 @@ const catStyles = StyleSheet.create({
     rippleColor: "3b3"
   },
   title: {
+
     backgroundColor: "#adf",
     fontSize: 18,
     textTransform: 'uppercase',
