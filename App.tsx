@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Fragment, useState } from "react";
-import { Button, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, FlatList, Image, Pressable, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 export type Props = {
@@ -68,7 +68,7 @@ const Cafe = () => {
       a => a.key === key
     );
     if (c !== undefined)
-      c.name = newName  
+      c.name = newName
 
     setCats(newCats)
   }
@@ -92,12 +92,22 @@ const Cafe = () => {
 type CatProps = {
   keycat: number;
   name: string;
-  newName:  (key: number, newName: string) => void
+  newName: (key: number, newName: string) => void
 }
 
 const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
   const [isHungry, setIsHungry] = useState(true);
-  const [digestionTime, resetTime] = useState(Math.floor(Math.random() * 5000));
+  const [digestionTime, resetTime] = useState(1000);
+
+  const feedTheCat = (giveALot : boolean) => {
+    const delay = giveALot ? 10000 : 1000
+    setIsHungry(false);
+    let timer: ReturnType<typeof setTimeout> = setTimeout(() => {
+      setIsHungry(true);
+      clearTimeout(timer);
+      resetTime(Math.floor(Math.random() * delay))
+    }, digestionTime);
+  }
 
   return (
     <Fragment>
@@ -122,18 +132,22 @@ const Cat: React.FC<CatProps> = ({ keycat, name, newName }) => {
         <Text style={catStyles.text}>Meow, my name is {name}</Text>
         <Text style={catStyles.text}>and {isHungry ? "I am hungry" : "I'm fine thank you"}</Text>
         <View style={catStyles.buttonStyle}>
-          <Button
+          <Pressable
+            style={catStyles.buttonStyle}
+            android_ripple={{color: catStyles.buttonStyle.rippleColor}}
+            delayLongPress={2000}
+            onLongPress={() => {
+              feedTheCat(true)
+            }}
             onPress={() => {
-              setIsHungry(false);
-              let timer: ReturnType<typeof setTimeout> = setTimeout(() => {
-                setIsHungry(true);
-                clearTimeout(timer);
-                resetTime(Math.floor(Math.random() * 5000))
-              }, digestionTime);
+              feedTheCat(false)
             }}
             disabled={!isHungry}
-            title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
-          />
+          >
+            <Text >
+              {isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+            </Text>
+          </Pressable>
         </View>
       </View>
     </Fragment>
@@ -175,6 +189,8 @@ const catStyles = StyleSheet.create({
   },
   buttonStyle: {
     margin: 8,
+    backgroundColor: "#4c4",
+    rippleColor: "3b3"
   },
   title: {
     backgroundColor: "#adf",
