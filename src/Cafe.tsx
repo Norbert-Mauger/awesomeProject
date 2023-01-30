@@ -59,4 +59,4 @@ const cafeStyle = StyleSheet.create({
     },
   })
   
-  export default Cafe
+export default Cafe
