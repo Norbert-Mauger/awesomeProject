@@ -1,8 +1,5 @@
 import { registerRootComponent } from 'expo';
-import { SafeAreaView,StyleSheet, Text, View } from "react-native";
 import * as React from "react";
-import { Header, Icon } from '@rneui/themed';
-import Cafe from "./Cafe";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CatsCafe from './CatsCafe';

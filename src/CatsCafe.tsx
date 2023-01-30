@@ -8,8 +8,8 @@ import { Button } from '@rneui/base';
 
 
 type RootStackParamList = {
-    CatsCafe: undefined;
     About: undefined;
+    CatsCafe: undefined;
   };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About', 'CatsCafe'>
