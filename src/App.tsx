@@ -18,9 +18,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="CatsCafe">
+    <NavigationContainer >
+      <Stack.Navigator
+        initialRouteName="CatsCafe"
+        >
         <Stack.Screen
+          options={{ headerShown: false }}
           name="CatsCafe"
           component={CatsCafe} />
         <Stack.Screen

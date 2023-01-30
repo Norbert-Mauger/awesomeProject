@@ -24,10 +24,11 @@ const aboutStyles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 2,
         borderRadius: 12,
-        margin: 8,
+        marginTop: 42,
+       
     },
     buttonStyle: {
-        margin: 8,
+        margin: 2,
         backgroundColor: "#4c4",
         rippleColor: "3b3"
     },
@@ -38,8 +39,7 @@ const aboutStyles = StyleSheet.create({
         textTransform: 'uppercase',
         fontStyle: 'normal',
         margin: 4,
-        marginTop: 12,
-        padding: 4,
+        padding: 2,
         paddingHorizontal: 12
     },
  

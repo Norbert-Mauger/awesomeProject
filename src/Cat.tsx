@@ -88,7 +88,6 @@ const catStyles = StyleSheet.create({
         rippleColor: "3b3"
     },
     title: {
-
         backgroundColor: "#adf",
         fontSize: 18,
         textTransform: 'uppercase',
@@ -100,10 +99,8 @@ const catStyles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-
         fontStyle: 'italic',
         marginBottom: 8
-
     },
     input: {
         width: 150,
