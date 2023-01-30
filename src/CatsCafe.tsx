@@ -5,18 +5,14 @@ import { Header, Icon } from '@rneui/themed';
 import Cafe from "./Cafe";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button } from '@rneui/base';
+import { RootStackParamList } from './App';
 
 
-type RootStackParamList = {
-    About: undefined;
-    CatsCafe: undefined;
-  };
+type CatsCafeProps = NativeStackScreenProps<RootStackParamList, 'CatsCafe'>
 
-type Props = NativeStackScreenProps<RootStackParamList, 'About', 'CatsCafe'>
-
-const CatsCafe: React.FC<Props> = ({ navigation }) => {
+const CatsCafe: React.FC<CatsCafeProps> = ({ route, navigation }) => {
     const handleAboutPress = () => {
-        navigation.navigate('About')
+        navigation.navigate('About', {catsCount: 3})
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -24,7 +20,7 @@ const CatsCafe: React.FC<Props> = ({ navigation }) => {
                 backgroundImageStyle={{}}
                 barStyle="default"
                 centerComponent={{
-                    text: "MY TITLE",
+                    text: `Route: ${route.name}`,
                     style: { color: "#fff" }
                 }}
                 centerContainerStyle={{}}

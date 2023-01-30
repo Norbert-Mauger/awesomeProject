@@ -1,12 +1,16 @@
 import { Fragment, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View } from "react-native";
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from "./App";
 
 
-const About: React.FC = () => {
+type AboutProps = NativeStackScreenProps<RootStackParamList, 'About'>
+
+const About: React.FC<AboutProps> = ({route}) => {
     return (
         <Fragment>
             <View style={aboutStyles.body}>
-                <Text style={aboutStyles.title}>About Page</Text>
+                <Text style={aboutStyles.title}>there are {route.params.catsCount} cats right now</Text>
             </View>
         </Fragment>
     )
