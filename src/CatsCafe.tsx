@@ -48,7 +48,7 @@ const CatsCafe: React.FC<CatsCafeProps> = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header
+            {/* <Header
                 backgroundImageStyle={{}}
                 barStyle="default"
                 centerComponent={{
@@ -62,13 +62,14 @@ const CatsCafe: React.FC<CatsCafeProps> = ({ route, navigation }) => {
                 placement="center"
                 rightComponent={{ icon: "home", color: "#fff" }}
                 rightContainerStyle={{}}
-                statusBarProps={{}} />
+                statusBarProps={{}} /> */}
             <View style={styles.header}>
                 <Text style={styles.title}>This is the CAT CAFÉ !</Text>
                 <Pressable
                     style={styles.buttonStyle}
                     onPress={() => {
-                        handleAboutPress()
+                        //handleAboutPress()
+                        navigation.navigate('About', { catsCount: cats.length })
                     }}>
                     <Text>Click to know more about...</Text>
                 </Pressable>

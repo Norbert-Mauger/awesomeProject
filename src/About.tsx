@@ -10,7 +10,7 @@ const About: React.FC<AboutProps> = ({route}) => {
     return (
         <Fragment>
             <View style={aboutStyles.body}>
-                <Text style={aboutStyles.title}>there are {route.params.catsCount} cats right now</Text>
+                <Text style={aboutStyles.title}>there are {route.params?.catsCount} cats right now</Text>
             </View>
         </Fragment>
     )
